@@ -11,12 +11,26 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetAllByUnitPrice(40,100)) //GetAll kısmını hangisini istiyorsan ona çevirebilirsin. Getall hepsini, GetAllByCategory parantez içine hangi kategori ise yaz vb.
+            ProductTest(); //Product için önce metoda refactoring yaptık, comment kaldırıp metodu kullanabilirsiniz
+            //CategoryTest();
+        }
+
+        private static void CategoryTest()
+        {
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            foreach (var category in categoryManager.GetAll())
             {
-                Console.WriteLine(product.ProductName);
+                Console.WriteLine(category.CategoryName);
             }
-            
+        }
+
+        private static void ProductTest()
+        {
+            ProductManager productManager = new ProductManager(new EfProductDal());
+            foreach (var product in productManager.GetProductDetails()) //GetAll kısmını hangisini istiyorsan ona çevirebilirsin. Getall hepsini, GetAllByCategory parantez içine hangi kategori ise yaz vb.
+            {
+                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+            }
         }
     }
 }
